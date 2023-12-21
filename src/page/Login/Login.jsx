@@ -1,33 +1,33 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { useState } from "react";
-// import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
+import useAuth from "../../hook/useAuth";
 
 const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [error, setError] = useState([])
-    // const { loginUser } = useAuth()
+    const { LoginUserWithEmail } = useAuth()
     const handelForm = async (e) => {
-        // e.preventDefault();
-        // const form = e.target;
-        // const email = form.email.value;
-        // const password = form.password.value;
-        // setError('')
-        // try {
-        //     const result = await loginUser(email, password)
-        //     console.log(result)
-        //     if (result.user) {
-        //         form.reset();
-        //         Swal.fire('Login Successful');
-        //         navigate((location?.state?.pathname) ? location?.state.pathname : '/')
-        //     }
-        // } catch {
-        //     error => {
-        //         setError(error.message);
-        //     }
-        // }
+        e.preventDefault();
+        const form = e.target;
+        const email = form.email.value;
+        const password = form.password.value;
+        setError('')
+        try {
+            const result = await LoginUserWithEmail(email, password)
+            console.log(result)
+            if (result.user) {
+                form.reset();
+                Swal.fire('Login Successful');
+                navigate((location?.state?.pathname) ? location?.state.pathname : '/')
+            }
+        } catch {
+            error => {
+                setError(error.message);
+            }
+        }
     }
     const googleClick = () => {
 
@@ -57,12 +57,10 @@ const Login = () => {
                                     <span className="label-text dark:text-white">Password</span>
                                 </label>
                                 <input type="password" name="password" placeholder="password" className="input input-bordered rounded-none" required />
-                                <label className="label">
-                                    <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
-                                </label>
+
                             </div>
                             <div className="form-control ">
-                                <button className="btn  text-white dark:bg-sky-500 bg-amber-600 dark:text-white border-none rounded-none">Login</button>
+                                <button className="btn  text-white dark:bg-sky-500 bg-amber-600 dark:text-white border-none mt-6 rounded-none">Login</button>
                                 <div className="mt-3">
                                     <p>You do not have an Account Please <Link to="/register" className="text-amber-600 text-2xl">Register</Link></p>
                                 </div>
@@ -70,8 +68,8 @@ const Login = () => {
                                     <h1 className="text-red-500">{error}</h1>
                                 </div>
                                 <div className="divider">OR</div>
-                                <div onClick={googleClick} className=" border-2 border-white p-4 rounded-xl mt-5">
-                                    <p className="flex justify-center items-center gap-3 text-xl font-semibold text-white"><FcGoogle /> Continue With Google</p>
+                                <div onClick={googleClick} className="border border-amber-600 dark:border-white p-4 rounded-xl mt-5">
+                                    <p className="flex justify-center items-center gap-3 text-xl font-semibold "><FcGoogle /> Continue With Google</p>
                                 </div>
                             </div>
                         </form>

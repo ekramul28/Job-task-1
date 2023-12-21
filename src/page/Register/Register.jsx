@@ -1,30 +1,74 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import useAuth from "../../hook/useAuth";
+import imageUpload from "../../Api/image";
 
 const Register = () => {
+    const navigate = useNavigate()
     const [registerError, setRegisterError] = useState('');
-    const [registerSuccess, setRegisterSuccess] = useState('')
-    // const { createUserWithEmail, } = useContext(AuthContext);
+    const { createUserWithEmail, updateUserProfile } = useAuth()
+    const handelForm = async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const name = form.name.value;
+        const email = form.email.value;
+        const password = form.password.value;
+        const photoURL = form.imgUrl.files[0];
 
-    const handelForm = e => {
-        e.preventDefault()
-        const name = e.target.name.value;
-        const email = e.target.email.value;
-        const password = e.target.password.value;
+
+        setRegisterError('')
         if (password.length < 6) {
-            return Swal.fire('Password must be at least 6 characters')
+            return Swal.fire('Password must be at least 6 characters');
+
+        } if (!/[A-Z]/.test(password)) {
+            return Swal.fire('Password must be a Uppercase letter');
+
         }
-        // createUserWithEmail(email, password)
-        //     .then(result => {
-        //         setRegisterSuccess(result.user);
-        //         Swal.fire('Register Successful')
-        //     })
-        //     .catch(error => {
-        //         setRegisterError(error.message);
-        //     });
+        if (!/[a-z]/.test(password)) {
+            return Swal.fire('Password must be a Lowercase letter');
+
+        }
+        if (!/[0-9]/.test(password)) {
+            return Swal.fire('Password must be a number ')
+
+        }
+
+        try {
+            const image = await imageUpload(photoURL)
+            const result = await createUserWithEmail(email, password);
+            await updateUserProfile(name, image?.data?.display_url)
+            if (result?.user?.email) {
+                form.reset();
+                Swal.fire('register successful ')
+                navigate("/")
+            }
+
+        } catch (error) {
+            setRegisterError(error.message);
+        }
+
+
 
     }
+
+
+    // const handelForm = e => {
+    //     e.preventDefault()
+    //     const name = e.target.name.value;
+    //     const email = e.target.email.value;
+    //     const password = e.target.password.value;
+
+    //     createUserWithEmail(email, password)
+    //         .then(result => {
+    //             setRegisterSuccess(result.user);
+    //             Swal.fire('Register Successful')
+    //         })
+    //         .catch(error => {
+    //             setRegisterError(error.message);
+    //         });
+
+    // }
     return (
         <div>
             <div className="hero   ">
