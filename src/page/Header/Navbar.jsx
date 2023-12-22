@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useAuth from "../../hook/useAuth";
 import { CgProfile } from "react-icons/cg";
@@ -9,12 +9,13 @@ import Button from "../../components/button/button";
 import Swal from "sweetalert2";
 const Navbar = () => {
     const { user, Logout } = useAuth();
+    const navigate = useNavigate()
     console.log(user)
     const link = <>
         <li className="font-medium text-lg dark:text-white" ><NavLink to="/">Home</NavLink></li>
         <li className="font-medium text-lg dark:text-white"><NavLink to="/blog">Blog</NavLink></li>
         <li className="font-medium text-lg dark:text-white"><NavLink to="/product">Product</NavLink></li>
-        <li className="font-medium text-lg dark:text-white"><NavLink to="/deshbord">Deshbord</NavLink></li>
+        <li className="font-medium text-lg dark:text-white"><NavLink to="/dashboard">dashboard</NavLink></li>
         <li className="font-medium text-lg dark:text-white"><NavLink to="/card">Card</NavLink></li>
     </>
     const [theme, setTheme] = useState("dark");
@@ -43,8 +44,9 @@ const Navbar = () => {
             if (result.isConfirmed) {
                 Logout()
                     .then(result => {
-                        console.log(result);
+                        navigate('/')
                         Swal.fire('Logout succesfull');
+
                     })
                     .catch(error => {
                         console.log(error);

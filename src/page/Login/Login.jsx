@@ -8,7 +8,7 @@ const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [error, setError] = useState([])
-    const { LoginUserWithEmail } = useAuth()
+    const { LoginUserWithEmail, logInWithGoogle } = useAuth()
     const handelForm = async (e) => {
         e.preventDefault();
         const form = e.target;
@@ -21,7 +21,7 @@ const Login = () => {
             if (result.user) {
                 form.reset();
                 Swal.fire('Login Successful');
-                navigate((location?.state?.pathname) ? location?.state.pathname : '/')
+                navigate((location?.state?.pathname) ? location?.state.pathname : '/dashboard')
             }
         } catch {
             error => {
@@ -30,7 +30,16 @@ const Login = () => {
         }
     }
     const googleClick = () => {
-
+        logInWithGoogle()
+            .then(result => {
+                if (result.user) {
+                    Swal.fire('Login Successful')
+                    navigate((location?.state?.pathname) ? location?.state.pathname : '/dashboard')
+                }
+            })
+            .catch(error => {
+                console.error(error)
+            })
     }
 
 

@@ -53,22 +53,7 @@ const Register = () => {
     }
 
 
-    // const handelForm = e => {
-    //     e.preventDefault()
-    //     const name = e.target.name.value;
-    //     const email = e.target.email.value;
-    //     const password = e.target.password.value;
 
-    //     createUserWithEmail(email, password)
-    //         .then(result => {
-    //             setRegisterSuccess(result.user);
-    //             Swal.fire('Register Successful')
-    //         })
-    //         .catch(error => {
-    //             setRegisterError(error.message);
-    //         });
-
-    // }
     return (
         <div>
             <div className="hero   ">
