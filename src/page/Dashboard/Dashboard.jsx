@@ -73,12 +73,13 @@ const Dashboard = () => {
                 }
                 <div className="mt-10">
                     <li className="list-none font-semibold text-xl my-3 flex justify-center items-center"> <NavLink to="/dashboard" className='flex justify-center items-center gap-2 h-10 w-60  '><MdOutlineSpaceDashboard className="text-2xl font-bold "></MdOutlineSpaceDashboard> Dashboard</NavLink></li>
+                    <li className="list-none font-semibold text-xl my-3 flex justify-center items-center"> <NavLink to="/dashboard/allWork" className='flex justify-center items-center gap-2 h-10 w-60  '><MdOutlineSpaceDashboard className="text-2xl font-bold "></MdOutlineSpaceDashboard> AllWork</NavLink></li>
                     <li className="list-none font-semibold text-xl my-3  flex justify-center items-center"> <button onClick={handelAddWork} className='flex justify-center items-center gap-2 h-10 w-60 '><IoMdAdd className="text-2xl font-bold "></IoMdAdd> Add Work</button></li>
 
                     <AddWork></AddWork>
                 </div>
 
-                <div className="mt-48 flex justify-center ">
+                <div className="mt-32 flex justify-center ">
                     <button onClick={handelLogOut} className="btn border-none w-64 mr-2 bg-amber-600 text-white  flex justify-center items-center "><CiLogout className="text-white text-xl"></CiLogout> LogOut</button>
                 </div>
             </div>

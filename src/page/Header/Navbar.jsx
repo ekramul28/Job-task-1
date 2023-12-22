@@ -13,10 +13,9 @@ const Navbar = () => {
     console.log(user)
     const link = <>
         <li className="font-medium text-lg dark:text-white" ><NavLink to="/">Home</NavLink></li>
-        <li className="font-medium text-lg dark:text-white"><NavLink to="/blog">Blog</NavLink></li>
-        <li className="font-medium text-lg dark:text-white"><NavLink to="/product">Product</NavLink></li>
         <li className="font-medium text-lg dark:text-white"><NavLink to="/dashboard">dashboard</NavLink></li>
-        <li className="font-medium text-lg dark:text-white"><NavLink to="/card">Card</NavLink></li>
+        <li className="font-medium text-lg dark:text-white"><NavLink to="/login">Login</NavLink></li>
+        <li className="font-medium text-lg dark:text-white"><NavLink to="/register">Register</NavLink></li>
     </>
     const [theme, setTheme] = useState("dark");
     useEffect(() => {

@@ -5,6 +5,7 @@ import Login from "../page/Login/Login";
 import Register from "../page/Register/Register";
 import Dashboard from "../page/Dashboard/Dashboard";
 import DashboardHome from "../page/DashboardHome/DashboardHome";
+import AllWork from "../page/AllWork/AllWork";
 
 const router = createBrowserRouter([
     {
@@ -33,6 +34,11 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard',
                 element: <DashboardHome></DashboardHome>
+            },
+            {
+                path: '/dashboard/allWork',
+                element: <AllWork></AllWork>,
+                loader: () => fetch('http://localhost:5000/allWork')
             },
 
         ]
