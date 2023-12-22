@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { Element } from "react-scroll";
 
 const DashboardHome = () => {
-    const { data: todoWork = [] } = useQuery({
+    const { refetch, data: todoWork = [] } = useQuery({
         queryKey: ["todoWork"],
         queryFn: async () => {
             const res = await axios('http://localhost:5000/todo')
@@ -10,7 +11,8 @@ const DashboardHome = () => {
         }
 
     });
-    const { refetch, data: ongoing = [] } = useQuery({
+    refetch()
+    const { data: ongoing = [] } = useQuery({
         queryKey: ["ongoing"],
         queryFn: async () => {
             const res = await axios('http://localhost:5000/ongoing')
@@ -42,44 +44,76 @@ const DashboardHome = () => {
         <div className="flex ">
             <div className="w-1/3 text-center border border-black h-screen">
                 <h1>TO DO LIST</h1>
-                {
-                    todoWork.map(work => <div key={work._id} className="   bg-slate-100 dark:bg-slate-700 dark:text-white ml-3">
-                        <div className=" items-center text-center my-5">
-                            <h1>Title:{work.titles}</h1>
-                            <h1>Descriptions:{work.descriptions}</h1>
-                            <h1>Deadlines:{work.deadlines}</h1>
-                            <h1>Priority:{work.priority}</h1>
-                            <button onClick={() => handelTodoWork(work._id)} className="btn my-3 bg-amber-600  rounded-none text-white border-none">Make Ongoing</button>
-                        </div>
-                    </div>)
-                }
+                <Element className="element" id="scroll-container" style={{
+                    // position: 'relative',
+                    height: '100vh',
+                    overflow: 'scroll',
+                    marginBottom: '100px'
+                }}>
+
+
+                    {
+                        todoWork.map(work => <div key={work._id} className="   bg-slate-100 dark:bg-slate-700 dark:text-white ml-3">
+                            <div className=" items-center text-center my-5">
+                                <h1>Title:{work.titles}</h1>
+                                <h1>Descriptions:{work.descriptions}</h1>
+                                <h1>Deadlines:{work.deadlines}</h1>
+                                <h1>Priority:{work.priority}</h1>
+                                <button onClick={() => handelTodoWork(work._id)} className="btn my-3 bg-amber-600  rounded-none text-white border-none">Make Ongoing</button>
+                            </div>
+                        </div>)
+                    }
+
+
+                </Element>
+
+
+
+
+
             </div>
             <div className="w-1/3 text-center border border-black h-screen">
                 <h1>ONGOING LIST</h1>
-                {
-                    ongoing.map(work => <div key={work._id} className="   bg-slate-100 dark:bg-slate-700 dark:text-white ml-3">
-                        <div className=" items-center text-center my-5">
-                            <h1>Title:{work.titles}</h1>
-                            <h1>Descriptions:{work.descriptions}</h1>
-                            <h1>Deadlines:{work.deadlines}</h1>
-                            <h1>Priority:{work.priority}</h1>
-                            <button onClick={() => handelOnGO(work._id)} className="btn my-3 bg-amber-600  rounded-none text-white border-none">Make completed</button>
-                        </div>
-                    </div>)
-                }
+                <Element className="element" id="scroll-container" style={{
+                    position: 'relative',
+                    height: '100vh',
+                    overflow: 'scroll',
+                    marginBottom: '100px'
+                }}>
+                    {
+                        ongoing.map(work => <div key={work._id} className="   bg-slate-100 dark:bg-slate-700 dark:text-white ml-3">
+                            <div className=" items-center text-center my-5">
+                                <h1>Title:{work.titles}</h1>
+                                <h1>Descriptions:{work.descriptions}</h1>
+                                <h1>Deadlines:{work.deadlines}</h1>
+                                <h1>Priority:{work.priority}</h1>
+                                <button onClick={() => handelOnGO(work._id)} className="btn my-3 bg-amber-600  rounded-none text-white border-none">Make completed</button>
+                            </div>
+                        </div>)
+                    }
+                </Element>
+
             </div>
             <div className="w-1/3 text-center border border-black h-screen">
                 <h1>COMPLETED LIST</h1>
-                {
-                    completed.map(work => <div key={work._id} className="   bg-slate-100 dark:bg-slate-700 dark:text-white ml-3">
-                        <div className=" items-center text-center my-5">
-                            <h1>Title:{work.titles}</h1>
-                            <h1>Descriptions:{work.descriptions}</h1>
-                            <h1>Deadlines:{work.deadlines}</h1>
-                            <h1>Priority:{work.priority}</h1>
-                        </div>
-                    </div>)
-                }
+                <Element className="element" id="scroll-container" style={{
+                    position: 'relative',
+                    height: '100vh',
+                    overflow: 'scroll',
+                    marginBottom: '100px'
+                }}>
+                    {
+                        completed.map(work => <div key={work._id} className="   bg-slate-100 dark:bg-slate-700 dark:text-white ml-3">
+                            <div className=" items-center text-center my-5">
+                                <h1>Title:{work.titles}</h1>
+                                <h1>Descriptions:{work.descriptions}</h1>
+                                <h1>Deadlines:{work.deadlines}</h1>
+                                <h1>Priority:{work.priority}</h1>
+                            </div>
+                        </div>)
+                    }
+                </Element>
+
             </div>
         </div>
     );
