@@ -10,7 +10,7 @@ const DashboardHome = () => {
         }
 
     });
-    const { data: ongoing = [] } = useQuery({
+    const { refetch, data: ongoing = [] } = useQuery({
         queryKey: ["ongoing"],
         queryFn: async () => {
             const res = await axios('http://localhost:5000/ongoing')
@@ -27,9 +27,17 @@ const DashboardHome = () => {
 
     });
 
-    const handelOnGO = () => {
+    const handelTodoWork = async (id) => {
 
+        const res = await axios.patch(`http://localhost:5000/work/${id}`)
+
+        refetch();
     }
+    const handelOnGO = async (id) => {
+        const res = await axios.patch(`http://localhost:5000/work/com/${id}`)
+        refetch();
+    }
+
     return (
         <div className="flex ">
             <div className="w-1/3 text-center border border-black h-screen">
@@ -41,7 +49,7 @@ const DashboardHome = () => {
                             <h1>Descriptions:{work.descriptions}</h1>
                             <h1>Deadlines:{work.deadlines}</h1>
                             <h1>Priority:{work.priority}</h1>
-                            <button onClick={handelOnGO} className="btn my-3 bg-amber-600  rounded-none text-white border-none">Make Ongoing</button>
+                            <button onClick={() => handelTodoWork(work._id)} className="btn my-3 bg-amber-600  rounded-none text-white border-none">Make Ongoing</button>
                         </div>
                     </div>)
                 }
@@ -55,7 +63,7 @@ const DashboardHome = () => {
                             <h1>Descriptions:{work.descriptions}</h1>
                             <h1>Deadlines:{work.deadlines}</h1>
                             <h1>Priority:{work.priority}</h1>
-                            <button onClick={handelOnGO} className="btn my-3 bg-amber-600  rounded-none text-white border-none">Make Ongoing</button>
+                            <button onClick={() => handelOnGO(work._id)} className="btn my-3 bg-amber-600  rounded-none text-white border-none">Make completed</button>
                         </div>
                     </div>)
                 }
@@ -69,7 +77,6 @@ const DashboardHome = () => {
                             <h1>Descriptions:{work.descriptions}</h1>
                             <h1>Deadlines:{work.deadlines}</h1>
                             <h1>Priority:{work.priority}</h1>
-                            <button onClick={handelOnGO} className="btn my-3 bg-amber-600  rounded-none text-white border-none">Make Ongoing</button>
                         </div>
                     </div>)
                 }
