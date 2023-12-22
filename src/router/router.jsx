@@ -33,7 +33,8 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard',
                 element: <DashboardHome></DashboardHome>
-            }
+            },
+
         ]
     }
 ]);

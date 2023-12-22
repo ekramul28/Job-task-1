@@ -7,6 +7,7 @@ import useAuth from "../../hook/useAuth";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { IoMdAdd } from "react-icons/io";
 import Swal from "sweetalert2";
+import AddWork from "../AddWork/AddWork";
 const Dashboard = () => {
     const navigate = useNavigate()
     const { user, Logout } = useAuth();
@@ -46,6 +47,12 @@ const Dashboard = () => {
             }
         })
     }
+
+
+    const handelAddWork = () => {
+        document.getElementById('my_modal_5').showModal()
+    }
+
     return (
         <div className="flex dark:bg-slate-800">
             <div className="w-1/5 bg-slate-100 shadow-2xl h-screen  dark:bg-slate-700 dark:text-white">
@@ -66,11 +73,13 @@ const Dashboard = () => {
                 }
                 <div className="mt-10">
                     <li className="list-none font-semibold text-xl my-3 flex justify-center items-center"> <NavLink to="/dashboard" className='flex justify-center items-center gap-2 h-10 w-60  '><MdOutlineSpaceDashboard className="text-2xl font-bold "></MdOutlineSpaceDashboard> Dashboard</NavLink></li>
-                    <li className="list-none font-semibold text-xl my-3  flex justify-center items-center"> <NavLink to="/addWork" className='flex justify-center items-center gap-2 h-10 w-60 '><IoMdAdd className="text-2xl font-bold "></IoMdAdd> Add Work</NavLink></li>
+                    <li className="list-none font-semibold text-xl my-3  flex justify-center items-center"> <button onClick={handelAddWork} className='flex justify-center items-center gap-2 h-10 w-60 '><IoMdAdd className="text-2xl font-bold "></IoMdAdd> Add Work</button></li>
+
+                    <AddWork></AddWork>
                 </div>
 
-                <div className="mt-64 flex justify-end">
-                    <button onClick={handelLogOut} className="btn border-none w-64 mr-2 bg-amber-600 text-white  flex justify-center items-center"><CiLogout className="text-white text-xl"></CiLogout> LogOut</button>
+                <div className="mt-48 flex justify-center ">
+                    <button onClick={handelLogOut} className="btn border-none w-64 mr-2 bg-amber-600 text-white  flex justify-center items-center "><CiLogout className="text-white text-xl"></CiLogout> LogOut</button>
                 </div>
             </div>
             <div className="w-4/5 dark:text-white">
