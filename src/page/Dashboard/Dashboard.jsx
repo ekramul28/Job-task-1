@@ -8,6 +8,7 @@ import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { IoMdAdd } from "react-icons/io";
 import Swal from "sweetalert2";
 import AddWork from "../AddWork/AddWork";
+import { CgHome } from "react-icons/cg";
 const Dashboard = () => {
     const navigate = useNavigate()
     const { user, Logout } = useAuth();
@@ -55,7 +56,7 @@ const Dashboard = () => {
 
     return (
         <div className="flex dark:bg-slate-800">
-            <div className="w-1/5 bg-slate-100 shadow-2xl h-screen  dark:bg-slate-700 dark:text-white">
+            <div className="w-2/5 md:w-1/5 bg-slate-100 shadow-2xl h-screen  dark:bg-slate-700 dark:text-white">
                 <div className="text-3xl dark:text-white m-4">
                     {
                         theme === "dark" ? <CiDark onClick={handelClick}></CiDark> : <MdSunny onClick={handelClick}></MdSunny>
@@ -75,15 +76,17 @@ const Dashboard = () => {
                     <li className="list-none font-semibold text-xl my-3 flex justify-center items-center"> <NavLink to="/dashboard" className='flex justify-center items-center gap-2 h-10 w-60  '><MdOutlineSpaceDashboard className="text-2xl font-bold "></MdOutlineSpaceDashboard> Dashboard</NavLink></li>
                     <li className="list-none font-semibold text-xl my-3 flex justify-center items-center"> <NavLink to="/dashboard/allWork" className='flex justify-center items-center gap-2 h-10 w-60  '><MdOutlineSpaceDashboard className="text-2xl font-bold "></MdOutlineSpaceDashboard> AllWork</NavLink></li>
                     <li className="list-none font-semibold text-xl my-3  flex justify-center items-center"> <button onClick={handelAddWork} className='flex justify-center items-center gap-2 h-10 w-60 '><IoMdAdd className="text-2xl font-bold "></IoMdAdd> Add Work</button></li>
+                    <div className="divider">OR</div>
+                    <li className="list-none font-semibold text-xl my-3 flex justify-center items-center"> <NavLink to="/" className='flex justify-center items-center gap-2 h-10 w-60  '><CgHome className="text-2xl font-bold "></CgHome>  Home</NavLink></li>
 
                     <AddWork></AddWork>
                 </div>
 
                 <div className="mt-32 flex justify-center ">
-                    <button onClick={handelLogOut} className="btn border-none w-64 mr-2 bg-amber-600 text-white  flex justify-center items-center "><CiLogout className="text-white text-xl"></CiLogout> LogOut</button>
+                    <button onClick={handelLogOut} className="btn border-none md:w-64 mr-2 bg-amber-600 text-white  flex justify-center items-center "><CiLogout className="text-white text-xl"></CiLogout> LogOut</button>
                 </div>
             </div>
-            <div className="w-4/5 dark:text-white">
+            <div className="w-3/5 md:w-4/5 dark:text-white">
                 <Outlet></Outlet>
             </div>
         </div>

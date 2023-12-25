@@ -1,15 +1,24 @@
+import { NavLink } from "react-router-dom";
+import useAuth from "../../hook/useAuth";
 
 const Footer = () => {
+    const { user } = useAuth()
+    const link = <>
+        <li className="font-medium text-lg dark:text-white" ><NavLink to="/">Home</NavLink></li>
+        {
+            user && <li className="font-medium text-lg dark:text-white"><NavLink to="/dashboard">dashboard</NavLink></li>
+
+        }
+        <li className="font-medium text-lg dark:text-white"><NavLink to="/login">Login</NavLink></li>
+        <li className="font-medium text-lg dark:text-white"><NavLink to="/register">Register</NavLink></li>
+    </>
     return (
         <div>
             <footer className=" dark:bg-slate-800  bg-base-100  dark:text-white drop-shadow-[10px_10px_30px_rgba(0,0,0,0.25)]">
                 <div className="footer footer-center p-10  max-w-7xl sh mx-auto rounded ">
 
-                    <nav className="grid grid-flow-col gap-4">
-                        <a className="link link-hover">About us</a>
-                        <a className="link link-hover">Contact</a>
-                        <a className="link link-hover">Jobs</a>
-                        <a className="link link-hover">Press kit</a>
+                    <nav className="grid grid-flow-col gap-4 list-none">
+                        {link}
                     </nav>
                     <nav>
                         <div className="grid grid-flow-col gap-4">
@@ -19,7 +28,7 @@ const Footer = () => {
                         </div>
                     </nav>
                     <aside>
-                        <p>Copyright © 2023 - All right reserved by ACME Industries Ltd</p>
+                        <p>Copyright © 2023 - Md Ekramul Hassan</p>
                     </aside>
 
                 </div>

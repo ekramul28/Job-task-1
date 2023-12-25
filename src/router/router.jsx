@@ -6,6 +6,7 @@ import Register from "../page/Register/Register";
 import Dashboard from "../page/Dashboard/Dashboard";
 import DashboardHome from "../page/DashboardHome/DashboardHome";
 import AllWork from "../page/AllWork/AllWork";
+import EditWork from "../page/Edit/EditWork";
 
 const router = createBrowserRouter([
     {
@@ -38,7 +39,13 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/allWork',
                 element: <AllWork></AllWork>,
-                loader: () => fetch('http://localhost:5000/allWork')
+                loader: () => fetch('https://job-task-1-server-lovat.vercel.app/allWork')
+            },
+            {
+                path: '/dashboard/edit/:id',
+                element: <EditWork></EditWork>,
+                loader: ({ params }) => fetch(`https://job-task-1-server-lovat.vercel.app/allWork/${params.id}`)
+
             },
 
         ]

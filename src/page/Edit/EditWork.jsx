@@ -1,13 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
+import axios from 'axios';
+import { useLoaderData, useNavigate, useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
-const AddWork = () => {
-    const { refetch, data } = useQuery({
-    });
-    const navigate = useNavigate()
-    const dialog = document.querySelector("dialog");
+const EditWork = () => {
+    const { id } = useParams()
+    const data = useLoaderData();
+    const navigate = useNavigate();
+    console.log(data);
+
     const handelForm = async (e) => {
         e.preventDefault();
         const form = e.target;
@@ -15,54 +15,51 @@ const AddWork = () => {
         const descriptions = form.descriptions.value;
         const deadlines = form.deadlines.value;
         const priority = form.priority.value;
-        const value = { titles, descriptions, deadlines, priority, position: "to do" }
-        console.log(value);
-
-        const res = await axios.post('https://job-task-1-server-lovat.vercel.app/work', value)
-        console.log(res.data);
-        if (res.data.insertedId) {
-            form.reset();
-            dialog.close();
-            refetch()
-            Swal.fire('add successful ')
-            navigate('/dashboard/allWork')
-
-
+        const data = { titles, descriptions, deadlines, priority }
+        const res = await axios.patch(`https://job-task-1-server-lovat.vercel.app/edit/${id}`, data)
+        console.log(res.data)
+        if (res.data.modifiedCount > 0) {
+            Swal.fire('Edit successful ')
+            navigate('/dashboard')
         }
+
+
+
     }
     return (
         <div>
-            <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle ">
+
+            <div className='flex justify-center items-center mt-4' >
                 <div className="modal-box dark:bg-slate-700 dark:text-white">
 
                     <form onSubmit={handelForm} className="card-body w-80 md:w-[450px] ">
-                        <h1 className="text-2xl font-bold  dark:text-amber-600 ">AddWork</h1>
+                        <h1 className="text-2xl font-bold  dark:text-amber-600 ">EditWork</h1>
 
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text dark:text-white">Titles</span>
                             </label>
-                            <input type="text" placeholder="Titles" name="titles" className="input  input-bordered rounded-none" required />
+                            <input defaultValue={data.titles} type="text" placeholder="Titles" name="titles" className="input  input-bordered rounded-none" required />
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text dark:text-white">Descriptions</span>
                             </label>
-                            <textarea name="descriptions" id="" cols="30" rows="10" className="input input-bordered rounded-none" required></textarea>
+                            <textarea defaultValue={data.descriptions} name="descriptions" id="" cols="30" rows="10" className="input input-bordered rounded-none" required></textarea>
 
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text dark:text-white">Deadlines</span>
                             </label>
-                            <input type="date" name="deadlines" placeholder="deadlines" className="input input-bordered rounded-none" required />
+                            <input type="date" name="deadlines" defaultValue={data.deadlines} placeholder="deadlines" className="input input-bordered rounded-none" required />
 
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text dark:text-white">Priority</span>
                             </label>
-                            <select name="priority" className="select select-bordered w-full  rounded-none  input dark:text-black">
+                            <select defaultValue={data.priority} name="priority" className="select select-bordered w-full  rounded-none  input dark:text-black">
                                 <option disabled selected>Select Your Priority</option>
                                 <option value='low'>Low</option>
                                 <option value='moderate'>Moderate </option>
@@ -73,12 +70,8 @@ const AddWork = () => {
                         </div>
 
                         <div className="flex justify-center items-center gap-3">
-                            <input className="input input-bordered rounded-none bg-amber-600 border-none w-full mt-6 text-white " type="submit" value="ADD " />
-                            <div className="modal-action justify-center items-center">
-                                <form method="dialog" >
-                                    <button className="btn">close</button>
-                                </form>
-                            </div>
+                            <input className="input input-bordered rounded-none bg-amber-600 border-none w-full mt-6 text-white " type="submit" value="Edit " />
+
                         </div>
 
                     </form>
@@ -86,9 +79,9 @@ const AddWork = () => {
 
 
                 </div>
-            </dialog>
+            </div>
         </div>
     );
 };
 
-export default AddWork;
+export default EditWork;
